@@ -4,16 +4,13 @@ const Schema = mongoose.Schema
 
 const jobapplicationSchema = new Schema({
     position:{
-        type: String,
-        required: true
+        type: String
     },
     level:{
-        type: String,
-        required: true
+        type: String
     },
     company:{
-        type: String,
-        required: true
+        type: String
     },
     salary:{
         type: String

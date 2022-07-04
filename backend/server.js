@@ -8,7 +8,7 @@ const app = express()
 
 //middleware
 
-app.use(express.json)
+app.use(express.json())
 
 app.use((req,res,next) =>{
     console.log(req.path, req.method)
@@ -24,7 +24,6 @@ mongoose.connect(process.env.MONGO_URI)
         app.listen(process.env.PORT,() =>{
             console.log( "connected to mongodb and listening on PORT", process.env.PORT)
         })
-
     })
     .catch(() =>{
         console.log(error)
