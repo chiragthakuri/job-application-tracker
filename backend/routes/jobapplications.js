@@ -7,21 +7,23 @@ const {
     updateJobapplication
 } = require('../controllers/jobapplicationController')
 
+const validateMongooseId  = require("../middleware/validateMongooseId ");
+
 const router = express.Router()
 
-// GET all workouts
+// GET all job applications
 router.get('/', getJobapplications)
 
-// GET a single workout
-router.get('/:id', getJobapplication)
+// GET a single job application
+router.get('/:id', validateMongooseId , getJobapplication)
 
-// POST a new workout
+// POST a new job application
 router.post('/', createJobapplication)
 
-// DELETE a workout
-router.delete('/:id', deleteJobapplication)
+// DELETE a job application
+router.delete('/:id', validateMongooseId , deleteJobapplication)
 
-// UPDATE a workout
-router.patch('/:id', updateJobapplication)
+// UPDATE a job application
+router.patch('/:id', validateMongooseId, updateJobapplication)
 
 module.exports = router
