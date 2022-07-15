@@ -1,14 +1,6 @@
 const Jobapplication = require('../models/jobapplicationModel')
 const mongoose = require('mongoose')
 
-const notFound = async (req, res) => {
-const { id } = req.params
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such Job application'})
-  }
-}
-
 // get all job applications
 const getJobapplications = async (req, res) => {
   const jobapplications = await Jobapplication.find({}).sort({createdAt: -1})
@@ -18,7 +10,6 @@ const getJobapplications = async (req, res) => {
 
 // get a job applications
 const getJobapplication = async (req, res) => {
-  notFound()
 
   const jobapplication = await Jobapplication.findById(id)
 
@@ -46,7 +37,6 @@ const createJobapplication = async (req, res) => {
 
 // delete a Jobapplication
 const deleteJobapplication = async (req, res) => {
-  notFound()
 
   const jobapplication = await Jobapplication.findOneAndDelete({_id: id})
 
@@ -59,11 +49,7 @@ const deleteJobapplication = async (req, res) => {
 
 // update a Jobapplication
 const updateJobapplication = async (req, res) => {
-  notFound()
 
-  const jobapplication = await Jobapplication.findOneAndUpdate({_id: id}, {
-    ...req.body
-  })
 
   if (!jobapplication) {
     return res.status(400).json({error: 'No such jobapplication'})

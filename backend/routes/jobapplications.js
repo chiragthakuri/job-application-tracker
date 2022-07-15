@@ -1,40 +1,29 @@
 const express = require('express')
+const {
+    getJobapplications,
+    getJobapplication,
+    createJobapplication,
+    deleteJobapplication,
+    updateJobapplication
+} = require('../controllers/jobapplicationController')
 
-const Jobapplication = require('../models/jobapplicationModel')
+const validateMongooseId  = require("../middleware/validateMongooseId ");
 
 const router = express.Router()
 
-//get all job applications
-router.get('/', (req, res) =>{
-    res.json({mssg: 'get all job applications'})
-}) 
+// GET all job applications
+router.get('/', getJobapplications)
 
-//get a single job application
-router.get('/:id', (req, res) =>{
-    res.json({mssg: 'get a single application'})
-}) 
+// GET a single job application
+router.get('/:id', validateMongooseId , getJobapplication)
 
-//post a job application
-router.post('/', async (req, res) =>{
-    const {position, level, company, salary, questions_asked, date_applied, 
-          job_posting_url} = req.body
-    try {
-       const jobapplication = await Jobapplication.create({ position, level, company, salary, questions_asked, date_applied, job_posting_url })
-        res.status(200).json(jobapplication)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-   
-}) 
+// POST a new job application
+router.post('/', createJobapplication)
 
-//update a job application
-router.patch('/:id', (req, res) =>{
-    res.json({mssg: 'update a job application'})
-}) 
+// DELETE a job application
+router.delete('/:id', validateMongooseId , deleteJobapplication)
 
-//delete a job application
-router.delete('/:id', (req, res) =>{
-    res.json({mssg: 'update a job application'})
-}) 
+// UPDATE a job application
+router.patch('/:id', validateMongooseId, updateJobapplication)
 
 module.exports = router
